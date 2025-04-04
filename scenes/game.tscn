@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://ddxt7qrfq5bme"]
+
+[ext_resource type="Script" uid="uid://beqnguvd14fux" path="res://scripts/player.gd" id="1_uwrxv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8cj0n"]
+sky_top_color = Color(0.49, 0.5775, 0.7, 1)
+
+[sub_resource type="Sky" id="Sky_uwrxv"]
+sky_material = SubResource("ProceduralSkyMaterial_8cj0n")
+
+[sub_resource type="Environment" id="Environment_8cj0n"]
+background_mode = 2
+sky = SubResource("Sky_uwrxv")
+ambient_light_source = 3
+ambient_light_color = Color(0.739688, 0.612399, 0.329822, 1)
+ambient_light_sky_contribution = 0.65
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8cj0n"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwrxv"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cj0n"]
+albedo_color = Color(0, 0.673848, 0.677388, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uwrxv"]
+albedo_color = Color(1, 0.443137, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_yqjtg"]
+material = SubResource("StandardMaterial3D_uwrxv")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lnu2h"]
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8cj0n")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(3.39476, 0, 0, 0, 1, 0, 0, 0, 3.39476, 0, -0.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_8cj0n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_uwrxv")
+surface_material_override/0 = SubResource("StandardMaterial3D_8cj0n")
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.66507, 0)
+script = ExtResource("1_uwrxv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("SphereMesh_yqjtg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("SphereShape3D_lnu2h")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.75559, -0.550942, 0.354324, -1.16415e-10, 0.540916, 0.841077, -0.655044, -0.635509, 0.408711, 7.92906, 12.7548, 5.56581)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.648361, -0.386046, 0.656198, 0.105393, 0.808097, 0.579544, -0.754003, 0.444912, -0.483252, 7.98125, 10.0309, -5.66879)
+light_energy = 0.838
+shadow_enabled = true
+shadow_blur = 0.5
+directional_shadow_mode = 0
+sky_mode = 1

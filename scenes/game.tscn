@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddxt7qrfq5bme"]
+[gd_scene load_steps=12 format=3 uid="uid://ddxt7qrfq5bme"]
 
 [ext_resource type="Script" uid="uid://beqnguvd14fux" path="res://scripts/player.gd" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://c05qjpmt2yrgb" path="res://scripts/ball_cam.gd" id="2_yqjtg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8cj0n"]
 sky_top_color = Color(0.49, 0.5775, 0.7, 1)
@@ -16,10 +17,10 @@ ambient_light_color = Color(0.739688, 0.612399, 0.329822, 1)
 ambient_light_sky_contribution = 0.65
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8cj0n"]
-size = Vector3(10, 0.5, 10)
+size = Vector3(30, 0.5, 30)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwrxv"]
-size = Vector3(10, 0.5, 10)
+size = Vector3(30, 0.5, 30)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cj0n"]
 albedo_color = Color(0, 0.673848, 0.677388, 1)
@@ -38,7 +39,7 @@ material = SubResource("StandardMaterial3D_uwrxv")
 environment = SubResource("Environment_8cj0n")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(3.39476, 0, 0, 0, 1, 0, 0, 0, 3.39476, 0, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_8cj0n")
@@ -57,8 +58,10 @@ mesh = SubResource("SphereMesh_yqjtg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("SphereShape3D_lnu2h")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.75559, -0.550942, 0.354324, -1.16415e-10, 0.540916, 0.841077, -0.655044, -0.635509, 0.408711, 7.92906, 12.7548, 5.56581)
+[node name="ball_cam" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_yqjtg")
+target = NodePath("../Player")
+offset = Vector3(0, 10, 3.005)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.648361, -0.386046, 0.656198, 0.105393, 0.808097, 0.579544, -0.754003, 0.444912, -0.483252, 7.98125, 10.0309, -5.66879)
